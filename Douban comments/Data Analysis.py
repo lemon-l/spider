@@ -37,17 +37,17 @@ with codecs.open(r'./comment_content.cvs', 'r', 'utf-8') as csvfile:
     words_stat = words_df.groupby('segment').agg(计数=pd.NamedAgg(
         column='segment', aggfunc='size')).reset_index().sort_values(by='计数', ascending=False)
 
-    # 做词云
+     # 做词云
     bimg = imread(r'./豆瓣影评/hhh.jpg')
     matplotlib.rcParams['figure.figsize'] = (10.0,6.0)
-#设置中文字体 背景颜色等
-wordcloud = WordCloud(font_path='C:/Windows/Fonts/simfang.ttf',mask=bimg,background_color='white',max_font_size=80) 
-#字典推导式
-word_frequence  = {x[0]:x[1] for x in words_stat.head(1000).values} #取词频最高的前1000个词 (词，词频)->{词：词频}
-wordcloud = wordcloud.fit_words(word_frequence)
-bimgColors=ImageColorGenerator(bimg)
-result = wordcloud.recolor(color_func=bimgColors)
-plt.axis("off")
-plt.imshow(result)
-plt.show()
-result.to_file(r'./豆瓣影评/词云.jpg')
+    #设置中文字体 背景颜色等
+    wordcloud = WordCloud(font_path='C:/Windows/Fonts/simfang.ttf',mask=bimg,background_color='white',max_font_size=80) 
+    #字典推导式
+    word_frequence  = {x[0]:x[1] for x in words_stat.head(1000).values} #取词频最高的前1000个词 (词，词频)->{词：词频}
+    wordcloud = wordcloud.fit_words(word_frequence)
+    bimgColors=ImageColorGenerator(bimg)
+    result = wordcloud.recolor(color_func=bimgColors)
+    plt.axis("off")
+    plt.imshow(result)
+    plt.show()
+    result.to_file(r'./豆瓣影评/词云.jpg')
